@@ -24,11 +24,16 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/types/**/*"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "storybook-static"
+    "storybook-static",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx"
   ]
 }
