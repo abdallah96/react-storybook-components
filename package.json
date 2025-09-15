@@ -1,6 +1,6 @@
 {
-  "name": "@company/ui",
-  "version": "1.0.0",
+  "name": "devguy-ui-components",
+  "version": "1.0.1",
   "description": "A reusable React component library with TypeScript and Storybook",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,7 +11,8 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles": "./dist/styles.css"
+    "./styles": "./dist/index.css",
+    "./dist/index.css": "./dist/index.css"
   },
   "files": [
     "dist",
@@ -39,8 +40,8 @@
   "author": "Company",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": ">=18.0.0 || ^19.0.0",
+    "react-dom": ">=18.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.17",
