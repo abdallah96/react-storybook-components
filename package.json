@@ -1,6 +1,6 @@
 {
   "name": "devguy-ui-components",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A reusable React component library with TypeScript and Storybook",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -20,15 +20,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
-    "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
-    "lint:check": "eslint 'src/**/*.{ts,tsx}'",
-    "format": "prettier --write 'src/**/*.{ts,tsx,css}'",
-    "format:check": "prettier --check 'src/**/*.{ts,tsx,css}'",
-    "prepare": "husky install",
-    "pre-commit": "lint-staged",
-    "build-storybook": "storybook build"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "react",
@@ -39,48 +31,19 @@
   ],
   "author": "Company",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "peerDependencies": {
     "react": ">=18.0.0 || ^19.0.0",
     "react-dom": ">=18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-interactions": "^7.6.17",
-    "@storybook/addon-links": "^7.6.17",
-    "@storybook/blocks": "^7.6.17",
-    "@storybook/react": "^7.6.17",
-    "@storybook/react-vite": "^7.6.17",
-    "@storybook/testing-library": "^0.2.2",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "eslint-plugin-storybook": "^0.6.15",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.6.17",
     "tsup": "^8.0.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "src/**/*.css": [
-      "prettier --write"
-    ]
+    "typescript": "^5.3.3"
   }
 }
