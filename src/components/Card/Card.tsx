@@ -1,53 +1,71 @@
 import { FC, ReactNode } from 'react';
-import styles from './Card.module.css';
 
 export interface CardProps {
   children: ReactNode;
   title?: string;
-  subtitle?: string;
-  variant?: 'default' | 'outlined' | 'elevated';
-  size?: 'sm' | 'md' | 'lg';
-  hoverable?: boolean;
+  description?: string;
+  footer?: ReactNode;
   className?: string;
-  onClick?: () => void;
+  hoverable?: boolean;
 }
 
 export const Card: FC<CardProps> = ({
   children,
   title,
-  subtitle,
-  variant = 'default',
-  size = 'md',
-  hoverable = false,
+  description,
+  footer,
   className = '',
-  onClick,
+  hoverable = false,
 }) => {
-  const cardClasses = [
-    styles.card,
-    styles[variant],
-    styles[size],
-    hoverable ? styles.hoverable : '',
-    onClick ? styles.clickable : '',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ');
+  // Base card classes
+  const baseClasses = [
+    'bg-white rounded-lg border border-gray-200',
+    'overflow-hidden transition-all duration-200',
+    'w-full flex flex-col'
+  ];
 
-  const CardComponent = onClick ? 'button' : 'div';
+  // Hover effect
+  const hoverClasses = hoverable ? [
+    'hover:shadow-lg hover:border-gray-300',
+    'hover:-translate-y-0.5'
+  ] : [];
+
+  // Combine all classes
+  const cardClasses = [
+    ...baseClasses,
+    ...hoverClasses,
+    className
+  ].filter(Boolean).join(' ');
 
   return (
-    <CardComponent
-      className={cardClasses}
-      onClick={onClick}
-      {...(onClick && { type: 'button' })}
-    >
-      {(title || subtitle) && (
-        <div className={styles.header}>
-          {title && <h3 className={styles.title}>{title}</h3>}
-          {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+    <div className={cardClasses}>
+      {/* Header section */}
+      {(title || description) && (
+        <div className="p-6 pb-4">
+          {title && (
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">
+              {title}
+            </h3>
+          )}
+          {description && (
+            <p className="text-sm text-gray-600">
+              {description}
+            </p>
+          )}
         </div>
       )}
-      <div className={styles.content}>{children}</div>
-    </CardComponent>
+      
+      {/* Content section */}
+      <div className={`px-6 ${!footer ? 'pb-6' : ''} ${!(title || description) ? 'pt-6' : ''}`}>
+        {children}
+      </div>
+      
+      {/* Footer section */}
+      {footer && (
+        <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
+          {footer}
+        </div>
+      )}
+    </div>
   );
 };

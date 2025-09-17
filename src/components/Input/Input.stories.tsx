@@ -10,13 +10,17 @@ const meta: Meta<typeof Input> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'error', 'disabled'],
+    },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
     },
     type: {
       control: { type: 'select' },
-      options: ['text', 'email', 'password', 'number', 'tel', 'url'],
+      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search'],
     },
     disabled: {
       control: { type: 'boolean' },
@@ -30,10 +34,12 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Basic variants
 export const Default: Story = {
   args: {
     placeholder: 'Enter text...',
     size: 'md',
+    variant: 'default',
   },
 };
 
@@ -43,6 +49,17 @@ export const WithLabel: Story = {
     placeholder: 'Enter your email',
     type: 'email',
     size: 'md',
+    variant: 'default',
+  },
+};
+
+export const WithHelperText: Story = {
+  args: {
+    label: 'Username',
+    placeholder: 'Enter your username',
+    helperText: 'Must be at least 3 characters long',
+    size: 'md',
+    variant: 'default',
   },
 };
 
@@ -53,32 +70,48 @@ export const Required: Story = {
     type: 'password',
     required: true,
     size: 'md',
+    variant: 'default',
   },
 };
 
-export const WithError: Story = {
+// Error state
+export const Error: Story = {
   args: {
-    label: 'Username',
-    placeholder: 'Enter username',
-    error: 'Username is required',
+    label: 'Email',
+    placeholder: 'Enter your email',
+    error: 'Please enter a valid email address',
     size: 'md',
+    variant: 'error',
   },
 };
 
+// Disabled state
 export const Disabled: Story = {
   args: {
     label: 'Disabled Input',
     placeholder: 'This input is disabled',
     disabled: true,
     size: 'md',
+    variant: 'disabled',
   },
 };
 
+// Size variants
 export const Small: Story = {
   args: {
     label: 'Small Input',
     placeholder: 'Small size',
     size: 'sm',
+    variant: 'default',
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    label: 'Medium Input',
+    placeholder: 'Medium size',
+    size: 'md',
+    variant: 'default',
   },
 };
 
@@ -87,9 +120,11 @@ export const Large: Story = {
     label: 'Large Input',
     placeholder: 'Large size',
     size: 'lg',
+    variant: 'default',
   },
 };
 
+// Controlled input example
 const ControlledStory = () => {
   const [value, setValue] = useState('');
   return (
@@ -99,6 +134,7 @@ const ControlledStory = () => {
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder="Type something..."
+        helperText="This input is controlled by React state"
       />
       <p style={{ marginTop: '8px', fontSize: '14px', color: '#666' }}>
         Value: {value}
@@ -111,6 +147,7 @@ export const Controlled: Story = {
   render: ControlledStory,
 };
 
+// All sizes showcase
 export const AllSizes: Story = {
   render: () => (
     <div
@@ -121,9 +158,67 @@ export const AllSizes: Story = {
         width: '300px',
       }}
     >
-      <Input label="Small" size="sm" placeholder="Small input" />
-      <Input label="Medium" size="md" placeholder="Medium input" />
-      <Input label="Large" size="lg" placeholder="Large input" />
+      <Input label="Small" size="sm" placeholder="Small input" variant="default" />
+      <Input label="Medium" size="md" placeholder="Medium input" variant="default" />
+      <Input label="Large" size="lg" placeholder="Large input" variant="default" />
     </div>
   ),
+};
+
+// All variants showcase
+export const AllVariants: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        width: '300px',
+      }}
+    >
+      <Input
+        label="Default Input"
+        placeholder="Default variant"
+        variant="default"
+        helperText="This is helper text"
+      />
+      
+      <Input
+        label="Error Input"
+        placeholder="Error variant"
+        variant="error"
+        error="This field is required"
+      />
+      
+      <Input
+        label="Disabled Input"
+        placeholder="Disabled variant"
+        variant="disabled"
+        helperText="This input is disabled"
+      />
+    </div>
+  ),
+};
+
+// Search input example
+export const Search: Story = {
+  args: {
+    type: 'search',
+    placeholder: 'Search...',
+    size: 'md',
+    variant: 'default',
+  },
+};
+
+// Email input with validation example
+export const EmailValidation: Story = {
+  args: {
+    label: 'Email',
+    type: 'email',
+    placeholder: 'your.email@example.com',
+    required: true,
+    helperText: 'We\'ll never share your email with anyone else.',
+    size: 'md',
+    variant: 'default',
+  },
 };

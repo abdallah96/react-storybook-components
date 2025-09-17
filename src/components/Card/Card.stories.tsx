@@ -11,14 +11,6 @@ const meta: Meta<typeof Card> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'outlined', 'elevated'],
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
-    },
     hoverable: {
       control: { type: 'boolean' },
     },
@@ -28,189 +20,168 @@ const meta: Meta<typeof Card> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Simple: Story = {
   args: {
-    children: 'This is a simple card with some content.',
-    size: 'md',
+    children: 'This is a simple card with some basic content.',
   },
 };
 
 export const WithTitle: Story = {
   args: {
     title: 'Card Title',
-    children: 'This card has a title and some content.',
-    size: 'md',
+    children: 'This card has a title and some content below it.',
   },
 };
 
-export const WithTitleAndSubtitle: Story = {
+export const WithTitleAndDescription: Story = {
   args: {
-    title: 'Card Title',
-    subtitle: 'This is a subtitle',
-    children: 'This card has both a title and subtitle.',
-    size: 'md',
+    title: 'Featured Product',
+    description: 'A brief description of what this card is about',
+    children: (
+      <div className="space-y-3">
+        <p className="text-gray-600">
+          This is the main content area of the card. You can put any React components here.
+        </p>
+        <div className="flex gap-2">
+          <Button size="sm">Learn More</Button>
+          <Button variant="secondary" size="sm">
+            View Details
+          </Button>
+        </div>
+      </div>
+    ),
   },
 };
 
-export const Outlined: Story = {
+export const WithFooter: Story = {
   args: {
-    title: 'Outlined Card',
-    children: 'This card has an outlined style.',
-    variant: 'outlined',
-    size: 'md',
-  },
-};
-
-export const Elevated: Story = {
-  args: {
-    title: 'Elevated Card',
-    children: 'This card has an elevated style with more shadow.',
-    variant: 'elevated',
-    size: 'md',
+    title: 'Project Card',
+    description: 'Ongoing development project',
+    children: (
+      <div className="space-y-2">
+        <div className="flex justify-between text-sm">
+          <span className="text-gray-500">Progress</span>
+          <span className="font-medium text-primary-600">75%</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div 
+            className="bg-primary-600 h-2 rounded-full" 
+            style={{ width: '75%' }}
+          />
+        </div>
+        <p className="text-sm text-gray-600 pt-2">
+          Project is on track for completion next month.
+        </p>
+      </div>
+    ),
+    footer: (
+      <div className="flex justify-between items-center">
+        <span className="text-sm text-gray-500">Last updated: Today</span>
+        <Button size="sm" variant="ghost">
+          View Project
+        </Button>
+      </div>
+    ),
   },
 };
 
 export const Hoverable: Story = {
   args: {
-    title: 'Hoverable Card',
-    children: 'Hover over this card to see the effect.',
+    title: 'Hover Effect',
+    description: 'This card has a hover effect',
+    children: 'Hover over this card to see the subtle animation.',
     hoverable: true,
-    size: 'md',
   },
 };
 
-export const Clickable: Story = {
+export const ComplexExample: Story = {
   args: {
-    title: 'Clickable Card',
-    subtitle: 'Click anywhere on this card',
-    children: 'This entire card is clickable and acts as a button.',
-    onClick: () => alert('Card clicked!'),
-    size: 'md',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    title: 'Small Card',
-    children: 'This is a small card.',
-    size: 'sm',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    title: 'Large Card',
-    children: 'This is a large card with more padding.',
-    size: 'lg',
-  },
-};
-
-export const WithButtons: Story = {
-  args: {
-    title: 'Card with Actions',
-    children: 'This card contains some action buttons.',
-    size: 'md',
-  },
-  render: args => (
-    <Card {...args}>
-      <p>This card contains some action buttons.</p>
-      <div style={{ marginTop: '16px', display: 'flex', gap: '8px' }}>
-        <Button size="sm">Action 1</Button>
-        <Button variant="secondary" size="sm">
-          Action 2
-        </Button>
-      </div>
-    </Card>
-  ),
-};
-
-export const AllVariants: Story = {
-  render: () => (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        gap: '16px',
-        maxWidth: '800px',
-      }}
-    >
-      <Card title="Default" variant="default">
-        Default card style
-      </Card>
-      <Card title="Outlined" variant="outlined">
-        Outlined card style
-      </Card>
-      <Card title="Elevated" variant="elevated">
-        Elevated card style
-      </Card>
-    </div>
-  ),
-};
-
-export const AllSizes: Story = {
-  render: () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
-        maxWidth: '400px',
-      }}
-    >
-      <Card title="Small" size="sm">
-        Small card
-      </Card>
-      <Card title="Medium" size="md">
-        Medium card
-      </Card>
-      <Card title="Large" size="lg">
-        Large card
-      </Card>
-    </div>
-  ),
-};
-
-export const ComplexContent: Story = {
-  render: () => (
-    <Card title="Product Card" subtitle="Premium Quality" hoverable>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <img
-          src="https://via.placeholder.com/300x200/4f46e5/ffffff?text=Product+Image"
-          alt="Product"
-          style={{
-            width: '100%',
-            height: '200px',
-            objectFit: 'cover',
-            borderRadius: '4px',
-          }}
-        />
-        <div>
-          <h4
-            style={{ margin: '0 0 8px 0', fontSize: '16px', fontWeight: '600' }}
-          >
-            Amazing Product
-          </h4>
-          <p
-            style={{ margin: '0 0 12px 0', color: '#6b7280', fontSize: '14px' }}
-          >
-            This is a description of the amazing product that you can buy.
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <span
-              style={{ fontSize: '18px', fontWeight: '600', color: '#111827' }}
-            >
-              $99.99
-            </span>
-            <Button size="sm">Add to Cart</Button>
+    title: 'User Profile',
+    description: 'Software Developer',
+    children: (
+      <div className="space-y-4">
+        <div className="flex items-center space-x-4">
+          <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+            <span className="text-primary-600 font-semibold">JD</span>
+          </div>
+          <div>
+            <h4 className="font-medium text-gray-900">John Doe</h4>
+            <p className="text-sm text-gray-500">San Francisco, CA</p>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <span className="text-gray-500">Projects</span>
+            <p className="font-medium">12</p>
+          </div>
+          <div>
+            <span className="text-gray-500">Followers</span>
+            <p className="font-medium">1.2K</p>
           </div>
         </div>
       </div>
-    </Card>
+    ),
+    footer: (
+      <div className="flex gap-2">
+        <Button size="sm" className="flex-1">
+          Follow
+        </Button>
+        <Button variant="secondary" size="sm" className="flex-1">
+          Message
+        </Button>
+      </div>
+    ),
+    hoverable: true,
+  },
+};
+
+export const AllExamples: Story = {
+  render: () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+      <Card title="Simple Card">
+        <p className="text-gray-600">Basic card with just content.</p>
+      </Card>
+      
+      <Card 
+        title="Card with Footer" 
+        description="This has a footer section"
+        footer={
+          <div className="flex justify-end">
+            <Button size="sm">Action</Button>
+          </div>
+        }
+      >
+        <p className="text-gray-600">Main content area with footer actions.</p>
+      </Card>
+      
+      <Card 
+        title="Hoverable Card"
+        hoverable={true}
+      >
+        <p className="text-gray-600">Hover over this card to see the effect.</p>
+      </Card>
+      
+      <Card
+        title="Statistics"
+        description="Monthly performance"
+        footer={
+          <div className="text-sm text-gray-500">
+            Updated: {new Date().toLocaleDateString()}
+          </div>
+        }
+      >
+        <div className="space-y-3">
+          <div className="flex justify-between text-sm">
+            <span>Completion Rate</span>
+            <span className="font-medium text-green-600">92%</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span>Active Users</span>
+            <span className="font-medium text-blue-600">1,243</span>
+          </div>
+        </div>
+      </Card>
+    </div>
   ),
 };

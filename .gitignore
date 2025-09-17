@@ -85,3 +85,5 @@ public
 # Storybook build outputs
 .out
 .storybook-out
+
+*storybook.log
